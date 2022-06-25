@@ -1,18 +1,127 @@
+*{
+    margin: 0;
+    padding: 0;
+    block-size: none;
+}
+
 html {
-  font-size: 14px;
+  font-size: 16px;
+  min-width: 375px;
 }
 
 @media (min-width: 768px) {
   html {
-    font-size: 16px;
+    font-size: 24px;
+    height: 100vh;
   }
+
+  header{
+      height: 10vh;
+  }
+
+  main{
+      height: 75vh;
+  }
+
+  footer{
+      height: 10vh;
+      background-color: red;
+      color: white;
+  }
+
+  footer div{
+      height: 100%;
+  }
+    /*Pagina de bienvenida*/
+  
+  .info-cont{
+      height: 100%;
+  }
+
+  .left-cont{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+  }
+
+    .right-cont {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    /*---------------------*/
+
+    /*Login*/
+
+
+    .login-main-cont{
+        height: 100%;
+    }
+
+    .btn-acceder {
+        width: 100%;
+        color: white;
+        background-color: red;
+        max-width: 30vw;
+        margin: auto;
+    }
+
+
+    /*----------*/
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
+    height: 100vh;
 }
 
 body {
   margin-bottom: 60px;
 }
+
+header {
+    height: 10vh;
+}
+
+main {
+    height: 75vh;
+}
+
+footer {
+    height: 10vh;
+    background-color: red;
+    color: white;
+}
+
+
+/*Pagina de bienvenida*/
+
+
+/*---------------------*/
+
+
+/*Login*/
+
+.link-login-inicio {
+    border-right: solid 1px red;
+    color: black;
+}
+
+.link-login-inicio:hover{
+    color: red;
+}
+
+.input-content {
+    width: 100%;
+}
+
+
+.btn-acceder {
+    width: 100%;
+    color: white;
+    background-color: red;
+    margin: auto;
+}
+
+/*-----------------*/
