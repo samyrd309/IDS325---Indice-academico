@@ -1,0 +1,61 @@
+﻿@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - IDS325___Indice_academico</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/IDS325___Indice_academico.styles.css" asp-append-version="true" />
+</head>
+<body class="d-flex flex-column  h-100">
+    <header class="container d-flex flex-column justify-content-center">
+        <nav class=" navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white d-flex justify-content-end">
+            <a class="nav-link link-login-inicio" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="">
+            <div class="d-flex flex-column justify-content-center login-main-cont">
+                <div class="input-content">
+                <h1 class="title-iniciar-sesion mb-4">Iniciar Sesión</h1>
+                <div class="mb-1 input-matricula">
+                    <label for="InputMatricula" class="form-label">Matricula</label>
+                    <input type="text" class="form-control" id="InputMatricula" aria-describedby="MatriculaHelp">
+                </div>
+                <div class="mb-1 input-contraseña">
+                    <label for="InputContraseña" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="InputContraseña">
+                </div>
+                <div class="mb-3">
+                    <a class="" asp-area="" asp-controller="Home" asp-action="Index">¿Olvidaste tu contraseña?</a>
+                </div>
+                </div>
+                
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-acceder">Acceder</button>
+                </div>
+            </div>
+            
+        </main>
+    </div>
+
+    <footer class="footer mt-auto">
+        <div class="container d-flex align-items-center">
+            <p>Derechos reservados del grupo #3 - 2022 </p>
+
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    
+</body>
+</html>
+
+
+
