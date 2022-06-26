@@ -1,0 +1,49 @@
+﻿@model IDS325___Indice_academico.Models.Asignatura
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Asignatura</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CodigoAsignatura" />
+            <div class="form-group">
+                <label asp-for="CodigoCarrera" class="control-label"></label>
+                <input asp-for="CodigoCarrera" class="form-control" />
+                <span asp-validation-for="CodigoCarrera" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CodigoArea" class="control-label"></label>
+                <input asp-for="CodigoArea" class="form-control" />
+                <span asp-validation-for="CodigoArea" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Credito" class="control-label"></label>
+                <input asp-for="Credito" class="form-control" />
+                <span asp-validation-for="Credito" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NombreAsignatura" class="control-label"></label>
+                <input asp-for="NombreAsignatura" class="form-control" />
+                <span asp-validation-for="NombreAsignatura" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
