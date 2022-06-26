@@ -1,0 +1,28 @@
+﻿@model IDS325___Indice_academico.Models.Seccion
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Eliminar Sección</h1>
+
+<h3>¿Está seguro que desea eliminar esto?</h3>
+<div>
+    <h4>Seccion</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Matricula)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Matricula)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="IdSeccion" />
+        <input type="hidden" asp-for="CodigoAsignatura" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
