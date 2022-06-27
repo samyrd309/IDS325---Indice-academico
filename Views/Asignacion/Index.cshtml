@@ -1,0 +1,48 @@
+﻿@model IEnumerable<IDS325___Indice_academico.Models.Calificacion>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Asignar Estudiantes</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Codigo Asignatura
+            </th>
+            <th>
+                Matricula Estudiante
+            </th>
+            <th>
+                Seccion
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodigoAsignatura)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Matricula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdSeccion)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

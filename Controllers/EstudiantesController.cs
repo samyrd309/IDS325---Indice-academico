@@ -26,7 +26,7 @@ namespace IDS325___Indice_academico.Controllers
         {
             estudiante = await _context.Persona.FirstOrDefaultAsync(m => m.IdRol == 2);   
             return _context.Persona != null ? 
-                          View("Index", await _context.Persona.Where(e => e.IdRol.Equals(2)).ToListAsync()) : // Regular para que filtre por rol de estudiante
+                          View("Index", await _context.Persona.Where(e => e.IdRol.Equals(2) && e.VigenciaPersona == true).ToListAsync()) : // Regular para que filtre por rol de estudiante
                           Problem("Entity set 'IDS325___Indice_academicoContext.Persona'  is null.");
         }
 
@@ -150,9 +150,10 @@ namespace IDS325___Indice_academico.Controllers
                 return Problem("Entity set 'IDS325___Indice_academicoContext.Persona'  is null.");
             }
             var persona = await _context.Persona.FindAsync(id);
+            persona.VigenciaPersona = false;
             if (persona != null)
             {
-                _context.Persona.Remove(persona);
+                _context.Persona.Update(persona);
             }
             
             await _context.SaveChangesAsync();

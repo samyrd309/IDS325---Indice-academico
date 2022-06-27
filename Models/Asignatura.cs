@@ -10,6 +10,7 @@ namespace IDS325___Indice_academico.Models
         public string CodigoArea { get; set; }
         public int Credito { get; set; }
         public string NombreAsignatura { get; set; }
-        
+        public bool VigenciaAsignatura { get; set; }
+
     }
 }

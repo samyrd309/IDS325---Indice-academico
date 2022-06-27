@@ -16,6 +16,6 @@ namespace IDS325___Indice_academico.Models
         public string Apellido { get; set; }
         public string CorreoElectronico { get; set; }
         public decimal? Indice { get; set; }
-
+        public bool VigenciaPersona { get; set; }
     }
 }
