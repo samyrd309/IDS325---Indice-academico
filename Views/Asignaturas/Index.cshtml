@@ -1,0 +1,53 @@
+﻿@model IEnumerable<IDS325___Indice_academico.Models.Asignatura>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Gestionar Asignaturas</h1>
+
+<p>
+    <a asp-action="Create">Crear Asignatura</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Clave
+            </th>
+            <th>
+                Nombre
+            </th>
+            <th>
+                Área Académica
+            </th>
+            <th>
+                Créditos
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodigoAsignatura)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreAsignatura)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodigoArea)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Credito)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CodigoAsignatura">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CodigoAsignatura">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CodigoAsignatura">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
