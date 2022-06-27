@@ -1,0 +1,33 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@using System.Data;
+@model DataSet
+@{
+    Layout = "_Layout";
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Codigo de la asignatura</th>
+            <th>Nombre de la asignatura</th>
+            <th>Credito</th>
+            <th>Nota</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (DataRow row in Model.Tables[0].Rows)
+        {
+            <tr>
+                <td>@row["CodigoAsignatura"]</td>
+                <td>@row["NombreAsignatura"]</td>
+                <td>@row["Credito"]</td>
+                <td>@row["Nota"]</td>
+            </tr>
+        }
+    </tbody>
+</table>
