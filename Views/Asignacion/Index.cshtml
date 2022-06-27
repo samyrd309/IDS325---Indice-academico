@@ -4,19 +4,21 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Asignar Estudiantes</h1>
+<h1>Index</h1>
+
+<partial name="_create" model="new Calificacion()"/>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                Codigo Asignatura
+                @Html.DisplayNameFor(model => model.Nota)
             </th>
             <th>
-                Matricula Estudiante
+                @Html.DisplayNameFor(model => model.IdSeccion)
             </th>
             <th>
-                Seccion
+                @Html.DisplayNameFor(model => model.VigenciaCalificacion)
             </th>
             <th></th>
         </tr>
@@ -25,13 +27,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.CodigoAsignatura)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Matricula)
+                @Html.DisplayFor(modelItem => item.Nota)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IdSeccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VigenciaCalificacion)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
@@ -42,7 +44,3 @@
 }
     </tbody>
 </table>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

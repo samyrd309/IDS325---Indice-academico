@@ -7,5 +7,10 @@
         public string Nota { get; set; }
         public int IdSeccion { get; set; }
         public bool VigenciaCalificacion { get; set; }
+
+        public Calificacion()
+        {
+
+        }
     }
 }
