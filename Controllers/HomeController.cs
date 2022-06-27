@@ -34,7 +34,7 @@ namespace IDS325___Indice_academico.Controllers
         [HttpPost]
         public async Task<IActionResult> IniciarSesion(int Matricula, string Contraseña)
         {
-
+            Persona objeto = new Persona();
             if (ModelState.IsValid)
             {
                 usuario = await _context.Persona.FindAsync(Matricula, Contraseña);

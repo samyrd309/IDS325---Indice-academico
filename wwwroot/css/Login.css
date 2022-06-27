@@ -56,6 +56,14 @@ footer{
     margin: auto;
 }
 
+.btn-acceder:hover{
+    width: 100%;
+    color: red;
+    background-color: white;
+    border: 1px solid white;
+    margin: auto;
+}
+
 /*-----------------*/
 
 @media (min-width: 768px) {
@@ -104,6 +112,14 @@ footer{
         max-width: 30vw;
         margin: auto;
     }
+
+     .btn-acceder:hover {
+            width: 100%;
+            color: red;
+            background-color: white;
+            border: 1px solid red;
+            margin: auto;
+     }
 
 
     /*----------*/
