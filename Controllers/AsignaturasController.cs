@@ -22,7 +22,7 @@ namespace IDS325___Indice_academico.Controllers
         // GET: Asignaturas
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Asignatura.ToListAsync());
+              return View(await _context.Asignatura.Where(a => a.VigenciaAsignatura == true).ToListAsync());
         }
 
         // GET: Asignaturas/Details/5
@@ -144,13 +144,15 @@ namespace IDS325___Indice_academico.Controllers
                 return Problem("Entity set 'IDS325___Indice_academicoContext.Asignatura'  is null.");
             }
             var asignatura = await _context.Asignatura.FindAsync(id);
+            asignatura.VigenciaAsignatura = false;
             if (asignatura != null)
             {
-                _context.Asignatura.Remove(asignatura);
+                _context.Asignatura.Update(asignatura); 
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+
         }
 
         private bool AsignaturaExists(string id)

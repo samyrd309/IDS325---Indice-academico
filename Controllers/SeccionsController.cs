@@ -23,7 +23,7 @@ namespace IDS325___Indice_academico.Controllers
         public async Task<IActionResult> Index()
         {
               return _context.Seccion != null ? 
-                          View(await _context.Seccion.ToListAsync()) :
+                          View(await _context.Seccion.Where(s => s.VigenciaSeccion == true).ToListAsync()) :
                           Problem("Entity set 'IDS325___Indice_academicoContext.Seccion'  is null.");
         }
 
@@ -147,9 +147,10 @@ namespace IDS325___Indice_academico.Controllers
                 return Problem("Entity set 'IDS325___Indice_academicoContext.Seccion'  is null.");
             }
             var seccion = await _context.Seccion.FindAsync(IdSeccion, CodigoAsignatura);
+            seccion.VigenciaSeccion = false;
             if (seccion != null)
             {
-                _context.Seccion.Remove(seccion);
+                _context.Seccion.Update(seccion);
             }
             
             await _context.SaveChangesAsync();
