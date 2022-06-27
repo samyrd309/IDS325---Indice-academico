@@ -1,0 +1,97 @@
+﻿@model IDS325___Indice_academico.Models.Persona
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - IDS325___Indice_academico</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/Login.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/IDS325___Indice_academico.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="container d-flex flex-column justify-content-center">
+        <nav class=" navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white d-flex justify-content-end">
+            <a class="nav-link link-login-inicio" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="">
+            <h1>Iniciar Sesión</h1>
+
+<hr />
+<div class="row d-flex justify-content-center align-self-auto">
+    <div class="col-md-4">
+        <form asp-controller="Home" asp-action="IniciarSesion" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-4">
+                <label asp-for="Matricula" class="control-label"></label>
+                <input asp-for="Matricula" class="form-control" type="text"/>
+                <span asp-validation-for="Matricula" class="text-danger"></span>
+            </div>
+            <div class="form-outline mb-4">
+                <label asp-for="Contraseña" class="control-label"></label>
+                <input asp-for="Contraseña" class="form-control" type="password" />
+                <span asp-validation-for="Contraseña" class="text-danger"></span>
+            </div>
+            <div class="form-group d-flex ">
+                <input type="submit" value="Login" class="btn btn-block btn-acceder" />
+            </div>
+        </form>
+    </div>
+</div>
+
+            
+        </main>
+    </div>
+
+    <footer class="footer mt-auto py-3 fixed mt-auto">
+        <div class="container d-flex align-items-center">
+            <p>Derechos reservados del grupo #3 - 2022 </p>
+
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
