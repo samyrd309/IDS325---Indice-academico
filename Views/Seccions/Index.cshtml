@@ -1,0 +1,70 @@
+﻿@model IEnumerable<IDS325___Indice_academico.Models.Seccion>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Gestionar Secciones</h1>
+
+<p>
+    <a asp-action="Create">Crear Sección</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Código Asignatura
+            </th>
+            <th>
+                Número de Sección
+            </th>
+            <th>
+                Matrícula de Profesor
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodigoAsignatura)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdSeccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Matricula)
+            </td>
+            <td>
+                @Html.ActionLink(
+                                linkText: "Edit",
+                                actionName: "Edit",
+                                controllerName: "Seccions",
+                                routeValues: new {
+                                    CodigoAsignatura = item.CodigoAsignatura, 
+                                    IdSeccion = item.IdSeccion
+                                },
+                                htmlAttributes: null
+                                ) |
+                @Html.ActionLink(linkText: "Details",
+                                actionName: "Details",
+                                controllerName: "Seccions",
+                                routeValues: new {
+                                    CodigoAsignatura = item.CodigoAsignatura, 
+                                    IdSeccion = item.IdSeccion
+                                },
+                                htmlAttributes: null) |
+                @Html.ActionLink(linkText: "Delete",
+                                actionName: "Delete",
+                                controllerName: "Seccions",
+                                routeValues: new {
+                                    CodigoAsignatura = item.CodigoAsignatura, 
+                                    IdSeccion = item.IdSeccion
+                                },
+                                htmlAttributes: null)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

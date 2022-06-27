@@ -10,85 +10,87 @@ using IDS325___Indice_academico.Models;
 
 namespace IDS325___Indice_academico.Controllers
 {
-    public class AsignaturasController : Controller
+    public class CalificacionsController : Controller
     {
         private readonly IDS325___Indice_academicoContext _context;
 
-        public AsignaturasController(IDS325___Indice_academicoContext context)
+        public CalificacionsController(IDS325___Indice_academicoContext context)
         {
             _context = context;
         }
 
-        // GET: Asignaturas
+        // GET: Calificacions
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Asignatura.Where(a => a.VigenciaAsignatura == true).ToListAsync());
+              return _context.Calificacion != null ? 
+                          View(await _context.Calificacion.ToListAsync()) :
+                          Problem("Entity set 'IDS325___Indice_academicoContext.Calificacion'  is null.");
         }
 
-        // GET: Asignaturas/Details/5
+        // GET: Calificacions/Details/5
         public async Task<IActionResult> Details(string id)
         {
-            if (id == null || _context.Asignatura == null)
+            if (id == null || _context.Calificacion == null)
             {
                 return NotFound();
             }
 
-            var asignatura = await _context.Asignatura
+            var calificacion = await _context.Calificacion
                 .FirstOrDefaultAsync(m => m.CodigoAsignatura == id);
-            if (asignatura == null)
+            if (calificacion == null)
             {
                 return NotFound();
             }
 
-            return View(asignatura);
+            return View(calificacion);
         }
 
-        // GET: Asignaturas/Create
+        // GET: Calificacions/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Asignaturas/Create
+        // POST: Calificacions/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CodigoAsignatura,CodigoCarrera,CodigoArea,Credito,NombreAsignatura")] Asignatura asignatura)
+        public async Task<IActionResult> Create([Bind("Matricula,CodigoAsignatura,Nota,IdSeccion,VigenciaCalificacion")] Calificacion calificacion)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(asignatura);
+                _context.Add(calificacion);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(asignatura);
+            return View(calificacion);
         }
 
-        // GET: Asignaturas/Edit/5
+        // GET: Calificacions/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
-            if (id == null || _context.Asignatura == null)
+            if (id == null || _context.Calificacion == null)
             {
                 return NotFound();
             }
 
-            var asignatura = await _context.Asignatura.FindAsync(id);
-            if (asignatura == null)
+            var calificacion = await _context.Calificacion.FindAsync(id);
+            if (calificacion == null)
             {
                 return NotFound();
             }
-            return View(asignatura);
+            return View(calificacion);
         }
 
-        // POST: Asignaturas/Edit/5
+        // POST: Calificacions/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("CodigoAsignatura,CodigoCarrera,CodigoArea,Credito,NombreAsignatura")] Asignatura asignatura)
+        public async Task<IActionResult> Edit(string id, [Bind("Matricula,CodigoAsignatura,Nota,IdSeccion,VigenciaCalificacion")] Calificacion calificacion)
         {
-            if (id != asignatura.CodigoAsignatura)
+            if (id != calificacion.CodigoAsignatura)
             {
                 return NotFound();
             }
@@ -97,12 +99,12 @@ namespace IDS325___Indice_academico.Controllers
             {
                 try
                 {
-                    _context.Update(asignatura);
+                    _context.Update(calificacion);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AsignaturaExists(asignatura.CodigoAsignatura))
+                    if (!CalificacionExists(calificacion.CodigoAsignatura))
                     {
                         return NotFound();
                     }
@@ -113,51 +115,49 @@ namespace IDS325___Indice_academico.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(asignatura);
+            return View(calificacion);
         }
 
-        // GET: Asignaturas/Delete/5
+        // GET: Calificacions/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
-            if (id == null || _context.Asignatura == null)
+            if (id == null || _context.Calificacion == null)
             {
                 return NotFound();
             }
 
-            var asignatura = await _context.Asignatura
+            var calificacion = await _context.Calificacion
                 .FirstOrDefaultAsync(m => m.CodigoAsignatura == id);
-            if (asignatura == null)
+            if (calificacion == null)
             {
                 return NotFound();
             }
 
-            return View(asignatura);
+            return View(calificacion);
         }
 
-        // POST: Asignaturas/Delete/5
+        // POST: Calificacions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            if (_context.Asignatura == null)
+            if (_context.Calificacion == null)
             {
-                return Problem("Entity set 'IDS325___Indice_academicoContext.Asignatura'  is null.");
+                return Problem("Entity set 'IDS325___Indice_academicoContext.Calificacion'  is null.");
             }
-            var asignatura = await _context.Asignatura.FindAsync(id);
-            asignatura.VigenciaAsignatura = false;
-            if (asignatura != null)
+            var calificacion = await _context.Calificacion.FindAsync(id);
+            if (calificacion != null)
             {
-                _context.Asignatura.Update(asignatura); 
+                _context.Calificacion.Remove(calificacion);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-
         }
 
-        private bool AsignaturaExists(string id)
+        private bool CalificacionExists(string id)
         {
-          return _context.Asignatura.Any(e => e.CodigoAsignatura == id);
+          return (_context.Calificacion?.Any(e => e.CodigoAsignatura == id)).GetValueOrDefault();
         }
     }
 }

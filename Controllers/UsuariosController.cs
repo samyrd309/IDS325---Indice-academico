@@ -34,7 +34,7 @@ namespace IDS325___Indice_academico.Controllers
                 }
 
                 if (usuario.IdRol == 1)
-                    return RedirectToAction("Index", "Administrador", usuario);
+                    return RedirectToAction("Index", "Estudiantes", usuario);
                 if (usuario.IdRol == 2)
                     return RedirectToAction("Index", "Estudiante", usuario);
                 if (usuario.IdRol == 3)

@@ -1,0 +1,44 @@
+﻿@model IDS325___Indice_academico.Models.Calificacion
+
+<h4>Calificacion</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Matricula" class="control-label"></label>
+                <input asp-for="Matricula" class="form-control" />
+                <span asp-validation-for="Matricula" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CodigoAsignatura" class="control-label"></label>
+                <input asp-for="CodigoAsignatura" class="form-control" />
+                <span asp-validation-for="CodigoAsignatura" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nota" class="control-label"></label>
+                <input asp-for="Nota" class="form-control" />
+                <span asp-validation-for="Nota" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdSeccion" class="control-label"></label>
+                <input asp-for="IdSeccion" class="form-control" />
+                <span asp-validation-for="IdSeccion" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="VigenciaCalificacion" /> @Html.DisplayNameFor(model => model.VigenciaCalificacion)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
