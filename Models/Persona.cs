@@ -5,7 +5,9 @@ namespace IDS325___Indice_academico.Models
     public class Persona
     {
         [Key]
+        [Required]
         public int Matricula { get; set; }
+        [Required]
         public string Contraseña { get; set; }
         public int IdRol { get; set; }
         public string? Carrera { get; set; }
