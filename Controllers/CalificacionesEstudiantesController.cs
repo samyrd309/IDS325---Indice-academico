@@ -4,6 +4,7 @@ using System.Data;
 using IDS325___Indice_academico.Models;
 using IDS325___Indice_academico.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace IDS325___Indice_academico.Controllers
 {
@@ -58,6 +59,13 @@ namespace IDS325___Indice_academico.Controllers
             }
 
             return View(ds);
+        }
+
+        public async Task<IActionResult> Ranking()
+        {
+            return _context.Persona != null ?
+                    View(await _context.Persona.Where(p => p.VigenciaPersona == true && p.IdRol == 2).OrderBy(p => p.Indice).ToListAsync()) :
+                    Problem("Entity set 'IDS325___Indice_academicoContext.Calificacion'  is null.");
         }
     }
 }

@@ -1,29 +1,38 @@
-﻿@using System.Data;
-@model DataSet
-@using IDS325___Indice_academico.Controllers
+﻿@model IEnumerable<IDS325___Indice_academico.Models.Persona>
+
 @{
-    Layout = "_Layout";
+    ViewData["Title"] = "Ranking";
 }
+
+<h1>Ranking</h1>
 
 <table class="table">
     <thead>
         <tr>
-            <th>Codigo de la asignatura</th>
-            <th>Nombre de la asignatura</th>
-            <th>Credito</th>
-            <th>Nota</th>
-            <th></th>
+            <th>
+                Matricula
+            </th>
+            <th>
+                Carrera
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Indice)
+            </th>
         </tr>
     </thead>
     <tbody>
-        @foreach (DataRow row in Model.Tables[0].Rows)
-        {
-            <tr>
-                <td>@row["CodigoAsignatura"]</td>
-                <td>@row["NombreAsignatura"]</td>
-                <td>@row["Credito"]</td>
-                <td>@row["Nota"]</td>
-            </tr>
-        }
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Matricula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Carrera)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Indice)
+            </td>
+        </tr>
+}
     </tbody>
 </table>

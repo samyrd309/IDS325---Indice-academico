@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IDS325___Indice_academico.Data;
 using IDS325___Indice_academico.Models;
+using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace IDS325___Indice_academico.Controllers
 {
     public class RevisionController : Controller
     {
         private readonly IDS325___Indice_academicoContext _context;
+        private readonly IConfiguration _config;
 
-        public RevisionController(IDS325___Indice_academicoContext context)
+        public RevisionController(IDS325___Indice_academicoContext context, IConfiguration config)
         {
             _context = context;
+            _config = config;
         }
 
         // GET: Revision
@@ -60,6 +64,7 @@ namespace IDS325___Indice_academico.Controllers
         {
             if (ModelState.IsValid)
             {
+                calificacion.VigenciaCalificacion = true;
                 _context.Add(calificacion);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -102,6 +107,20 @@ namespace IDS325___Indice_academico.Controllers
                     _context.Update(calificacion);
                     await _context.SaveChangesAsync();
                     // PROCESO SP ÜPDATE DEL NUEVO ÏNDICE
+
+                    DataSet ds = new DataSet();
+                    using (SqlConnection con = new SqlConnection(_config.GetConnectionString("IDS325___Indice_academicoContext")))
+                    {
+                        string query = $"EXEC ModificarIndice '{calificacion.Matricula}'";
+                        using (SqlCommand sql = new SqlCommand(query))
+                        {
+                            sql.Connection = con;
+                            sql.CommandType = CommandType.Text;
+                            con.Open();
+                            sql.ExecuteNonQuery();
+                            con.Close();
+                        }
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
