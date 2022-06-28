@@ -101,6 +101,7 @@ namespace IDS325___Indice_academico.Controllers
                 {
                     _context.Update(calificacion);
                     await _context.SaveChangesAsync();
+                    // PROCESO SP ÜPDATE DEL NUEVO ÏNDICE
                 }
                 catch (DbUpdateConcurrencyException)
                 {

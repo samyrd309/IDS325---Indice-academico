@@ -22,6 +22,27 @@ namespace IDS325___Indice_academico.Controllers
         
         public IActionResult Index(Persona _persona)
         {
+            DataSet data = new DataSet();
+            using (SqlConnection con = new SqlConnection(_config.GetConnectionString("IDS325___Indice_academicoContext")))
+            {
+                string q = $"CalcularIndice '{_persona.Matricula}'";
+                using (SqlCommand sql = new SqlCommand(q))
+                {
+                    sql.Connection = con;
+                    sql.CommandType = CommandType.Text;
+                    con.Open();
+                    SqlDataReader reader = sql.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        ViewBag.Indice = reader["Indice"].ToString();
+                        ViewBag.Total = reader["TotalCreditos"].ToString();
+                        ViewBag.Merito = reader["Meritos"].ToString();
+                    }
+
+                    con.Close();
+                }
+            }
+
             DataSet ds = new DataSet();
             using (SqlConnection conn = new SqlConnection(_config.GetConnectionString("IDS325___Indice_academicoContext")))
             {
