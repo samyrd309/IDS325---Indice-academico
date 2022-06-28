@@ -10,33 +10,33 @@ using IDS325___Indice_academico.Models;
 
 namespace IDS325___Indice_academico.Controllers
 {
-    public class CalificacionsController : Controller
+    public class RevisionController : Controller
     {
         private readonly IDS325___Indice_academicoContext _context;
 
-        public CalificacionsController(IDS325___Indice_academicoContext context)
+        public RevisionController(IDS325___Indice_academicoContext context)
         {
             _context = context;
         }
 
-        // GET: Calificacions
+        // GET: Revision
         public async Task<IActionResult> Index()
         {
               return _context.Calificacion != null ? 
-                          View(await _context.Calificacion.ToListAsync()) :
+                          View(await _context.Calificacion.Where(r => r.VigenciaCalificacion == true).ToListAsync()) :
                           Problem("Entity set 'IDS325___Indice_academicoContext.Calificacion'  is null.");
         }
 
-        // GET: Calificacions/Details/5
-        public async Task<IActionResult> Details(string id)
+        // GET: Revision/Details/5
+        public async Task<IActionResult> Details(string? CodigoAsignatura, int Matricula)
         {
-            if (id == null || _context.Calificacion == null)
+            if (CodigoAsignatura == null || Matricula == null || _context.Calificacion == null)
             {
                 return NotFound();
             }
 
             var calificacion = await _context.Calificacion
-                .FirstOrDefaultAsync(m => m.CodigoAsignatura == id);
+                .FirstOrDefaultAsync(m => m.CodigoAsignatura == CodigoAsignatura && m.Matricula == Matricula);
             if (calificacion == null)
             {
                 return NotFound();
@@ -45,13 +45,13 @@ namespace IDS325___Indice_academico.Controllers
             return View(calificacion);
         }
 
-        // GET: Calificacions/Create
+        // GET: Revision/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Calificacions/Create
+        // POST: Revision/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -67,15 +67,15 @@ namespace IDS325___Indice_academico.Controllers
             return View(calificacion);
         }
 
-        // GET: Calificacions/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        // GET: Revision/Edit/5
+        public async Task<IActionResult> Edit(string? CodigoAsignatura, int Matricula)
         {
-            if (id == null || _context.Calificacion == null)
+            if (CodigoAsignatura == null || Matricula == null || _context.Calificacion == null)
             {
                 return NotFound();
             }
 
-            var calificacion = await _context.Calificacion.FindAsync(id);
+            var calificacion = await _context.Calificacion.FindAsync(CodigoAsignatura, Matricula);
             if (calificacion == null)
             {
                 return NotFound();
@@ -83,14 +83,14 @@ namespace IDS325___Indice_academico.Controllers
             return View(calificacion);
         }
 
-        // POST: Calificacions/Edit/5
+        // POST: Revision/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Matricula,CodigoAsignatura,Nota,IdSeccion,VigenciaCalificacion")] Calificacion calificacion)
+        public async Task<IActionResult> Edit(string? CodigoAsignatura, int Matricula, [Bind("Matricula,CodigoAsignatura,Nota,IdSeccion,VigenciaCalificacion")] Calificacion calificacion)
         {
-            if (id != calificacion.CodigoAsignatura)
+            if (CodigoAsignatura != calificacion.CodigoAsignatura && Matricula != calificacion.Matricula)
             {
                 return NotFound();
             }
@@ -118,16 +118,16 @@ namespace IDS325___Indice_academico.Controllers
             return View(calificacion);
         }
 
-        // GET: Calificacions/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        // GET: Revision/Delete/5
+        public async Task<IActionResult> Delete(string? CodigoAsignatura, int Matricula)
         {
-            if (id == null || _context.Calificacion == null)
+            if (CodigoAsignatura == null || Matricula == null || _context.Calificacion == null)
             {
                 return NotFound();
             }
 
             var calificacion = await _context.Calificacion
-                .FirstOrDefaultAsync(m => m.CodigoAsignatura == id);
+                .FirstOrDefaultAsync(m => m.CodigoAsignatura == CodigoAsignatura && m.Matricula == Matricula);
             if (calificacion == null)
             {
                 return NotFound();
@@ -136,7 +136,7 @@ namespace IDS325___Indice_academico.Controllers
             return View(calificacion);
         }
 
-        // POST: Calificacions/Delete/5
+        // POST: Revision/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
@@ -146,9 +146,10 @@ namespace IDS325___Indice_academico.Controllers
                 return Problem("Entity set 'IDS325___Indice_academicoContext.Calificacion'  is null.");
             }
             var calificacion = await _context.Calificacion.FindAsync(id);
+            calificacion.VigenciaCalificacion = false;
             if (calificacion != null)
             {
-                _context.Calificacion.Remove(calificacion);
+                _context.Calificacion.Update(calificacion);
             }
             
             await _context.SaveChangesAsync();

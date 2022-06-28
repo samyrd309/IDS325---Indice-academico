@@ -7,9 +7,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IDS325___Indice_academico.Data;
 using IDS325___Indice_academico.Models;
-using System.Data;
-using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
-using System.Text.Json;
 
 namespace IDS325___Indice_academico.Controllers
 {
@@ -26,31 +23,8 @@ namespace IDS325___Indice_academico.Controllers
         public async Task<IActionResult> Index()
         {
               return _context.Calificacion != null ? 
-                          View(await _context.Calificacion.Where(c => c.VigenciaCalificacion == true).ToListAsync()) :
+                          View(await _context.Calificacion.ToListAsync()) :
                           Problem("Entity set 'IDS325___Indice_academicoContext.Calificacion'  is null.");
-        }
-
-        public ActionResult Test()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Save(string txtMatricula, string txtAsignatura, string txtSeccion)
-        {
-            int matricula = Convert.ToInt16(txtMatricula);
-            int seccion = Convert.ToInt16(txtSeccion);
-            string asignatura = txtAsignatura;
-
-            Calificacion calificacion = new Calificacion();
-            calificacion.Matricula = matricula;
-            calificacion.CodigoAsignatura = asignatura;
-            calificacion.IdSeccion = seccion;
-
-            _context.Add(calificacion);
-            _context.SaveChanges();
-
-            return View();
         }
 
         // GET: Asignacion/Details/5
@@ -74,7 +48,7 @@ namespace IDS325___Indice_academico.Controllers
         // GET: Asignacion/Create
         public IActionResult Create()
         {
-            return View();
+            return View("Index");
         }
 
         // POST: Asignacion/Create
@@ -82,15 +56,15 @@ namespace IDS325___Indice_academico.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Matricula,CodigoAsignatura,Nota,IdSeccion")] Calificacion calificacion)
+        public async Task<IActionResult> Create([Bind("Matricula,CodigoAsignatura,Nota,IdSeccion,VigenciaCalificacion")] Calificacion calificacion)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(calificacion);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
-            return View(calificacion);
+            return View("Index");
         }
 
         // GET: Asignacion/Edit/5
@@ -114,7 +88,7 @@ namespace IDS325___Indice_academico.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Matricula,CodigoAsignatura,Nota,IdSeccion")] Calificacion calificacion)
+        public async Task<IActionResult> Edit(string id, [Bind("Matricula,CodigoAsignatura,Nota,IdSeccion,VigenciaCalificacion")] Calificacion calificacion)
         {
             if (id != calificacion.CodigoAsignatura)
             {
@@ -145,15 +119,15 @@ namespace IDS325___Indice_academico.Controllers
         }
 
         // GET: Asignacion/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(string? CodigoAsignatura, int Matricula)
         {
-            if (id == null || _context.Calificacion == null)
+            if (CodigoAsignatura == null || Matricula == null||  _context.Calificacion == null)
             {
                 return NotFound();
             }
 
             var calificacion = await _context.Calificacion
-                .FirstOrDefaultAsync(m => m.CodigoAsignatura == id);
+                .FirstOrDefaultAsync(m => m.CodigoAsignatura == CodigoAsignatura && m.Matricula == Matricula);
             if (calificacion == null)
             {
                 return NotFound();
@@ -165,17 +139,16 @@ namespace IDS325___Indice_academico.Controllers
         // POST: Asignacion/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(string? CodigoAsignatura, int Matricula)
         {
             if (_context.Calificacion == null)
             {
                 return Problem("Entity set 'IDS325___Indice_academicoContext.Calificacion'  is null.");
             }
-            var calificacion = await _context.Calificacion.FindAsync(id);
-            calificacion.VigenciaCalificacion = false;
+            var calificacion = await _context.Calificacion.FindAsync(CodigoAsignatura, Matricula);
             if (calificacion != null)
             {
-                _context.Calificacion.Update(calificacion);
+                _context.Calificacion.Remove(calificacion);
             }
             
             await _context.SaveChangesAsync();
@@ -188,52 +161,3 @@ namespace IDS325___Indice_academico.Controllers
         }
     }
 }
-
-/*private readonly IConfiguration _config;
-        private readonly HospitalContext _context;
-
-        public CuentasController(IConfiguration configuration, HospitalContext context)
-        {
-            _config = configuration;
-            _context = context;
-        }
-
-        public static Cuenta cuenta = new Cuenta();
-
-        public IActionResult Index(string IdPersona)
-        {
-            DataSet data = new DataSet();
-            using (SqlConnection con = new SqlConnection(_config.GetConnectionString("HospitalContext")))
-            {
-                string q = $"GetTotalCuenta '{IdPersona}'";
-                using (SqlCommand sql = new SqlCommand(q))
-                {
-                    sql.Connection = con;
-                    sql.CommandType = CommandType.Text;
-                    con.Open();
-                    SqlDataReader reader = sql.ExecuteReader();
-                    if (reader.Read())
-                    {
-                        ViewBag.Total = reader["Cuenta_Balance"].ToString();
-                    }
-                    
-                    con.Close();
-                }
-            }
-
-            DataSet ds = new DataSet();
-            using (SqlConnection conn = new SqlConnection(_config.GetConnectionString("HospitalContext")))
-            {
-                string query = $"EXEC GetDetalleCuenta '{IdPersona}'";
-                using (SqlCommand cmd = new SqlCommand(query))
-                {
-                    cmd.Connection = conn;
-                    using (SqlDataAdapter dsa = new SqlDataAdapter())
-                    {
-                        dsa.SelectCommand = cmd;
-                        dsa.Fill(ds);
-                    }
-                }
-            }
-            return View(ds);
-        }*/
