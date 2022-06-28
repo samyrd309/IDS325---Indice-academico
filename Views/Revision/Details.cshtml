@@ -11,16 +11,22 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CodigoAsignatura)
+            Matricula
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Matricula)
+        </dd>
+        <dt class = "col-sm-2">
+            Asignatura
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.CodigoAsignatura)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Matricula)
+            Seccion
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Matricula)
+            @Html.DisplayFor(model => model.IdSeccion)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Nota)
@@ -28,20 +34,8 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Nota)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdSeccion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdSeccion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.VigenciaCalificacion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.VigenciaCalificacion)
-        </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver</a>
 </div>

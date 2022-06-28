@@ -4,8 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Revisión</h1>
-
+<h1>Revisiones</h1>
 
 <table class="table">
     <thead>
@@ -17,12 +16,11 @@
                 Asignatura
             </th>
             <th>
-                Seccion
+                Sección
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Nota)
             </th>
-
             <th></th>
         </tr>
     </thead>
@@ -52,14 +50,6 @@
                                 htmlAttributes: null) |
                 @Html.ActionLink(linkText: "Details",
                                 actionName: "Details",
-                                controllerName: "Revision",
-                                routeValues: new {
-                                    CodigoAsignatura = item.CodigoAsignatura, 
-                                    Matricula = item.Matricula
-                                },
-                                htmlAttributes: null)  |
-                @Html.ActionLink(linkText: "Delete",
-                                actionName: "Delete",
                                 controllerName: "Revision",
                                 routeValues: new {
                                     CodigoAsignatura = item.CodigoAsignatura, 

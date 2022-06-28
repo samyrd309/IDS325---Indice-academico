@@ -23,7 +23,7 @@ namespace IDS325___Indice_academico.Controllers
         public async Task<IActionResult> Index()
         {
               return _context.Calificacion != null ? 
-                          View(await _context.Calificacion.Where(r => r.VigenciaCalificacion == true).ToListAsync()) :
+                          View(await _context.Calificacion.ToListAsync()) :
                           Problem("Entity set 'IDS325___Indice_academicoContext.Calificacion'  is null.");
         }
 
@@ -146,10 +146,9 @@ namespace IDS325___Indice_academico.Controllers
                 return Problem("Entity set 'IDS325___Indice_academicoContext.Calificacion'  is null.");
             }
             var calificacion = await _context.Calificacion.FindAsync(id);
-            calificacion.VigenciaCalificacion = false;
             if (calificacion != null)
             {
-                _context.Calificacion.Update(calificacion);
+                _context.Calificacion.Remove(calificacion);
             }
             
             await _context.SaveChangesAsync();
