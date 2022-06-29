@@ -51,7 +51,25 @@ namespace IDS325___Indice_academico.Controllers
 
         public ActionResult test()
         {
-            return View();
+            string CodigoAsignatura = "IDS325";
+            int Seccion = 1;
+            // Modificar Planchado
+
+            DataSet ds = new DataSet();
+            using (SqlConnection conn = new SqlConnection(_config.GetConnectionString("IDS325___Indice_academicoContext")))
+            {
+                string query = $"EXEC ListadoSeccion '{CodigoAsignatura}', {Seccion}";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    using (SqlDataAdapter adapter = new SqlDataAdapter())
+                    {
+                        adapter.SelectCommand = cmd;
+                        adapter.Fill(ds);
+                    }
+                }
+            }
+
+            return View(ds);
         }
 
         public ActionResult Publicar(string txtNota)
@@ -105,14 +123,14 @@ namespace IDS325___Indice_academico.Controllers
         }
 
         // GET: Publicacion/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(string? CodigoAsignatura, int Matricula, string Trimestre)
         {
-            if (id == null || _context.Calificacion == null)
+            if (CodigoAsignatura == null || Matricula == null || _context.Calificacion == null)
             {
                 return NotFound();
             }
 
-            var calificacion = await _context.Calificacion.FindAsync(id);
+            var calificacion = await _context.Calificacion.FindAsync(CodigoAsignatura, Matricula, Trimestre);
             if (calificacion == null)
             {
                 return NotFound();
@@ -125,9 +143,9 @@ namespace IDS325___Indice_academico.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Matricula,CodigoAsignatura,Nota,IdSeccion,VigenciaCalificacion")] Calificacion calificacion)
+        public async Task<IActionResult> Edit(string? CodigoAsignatura, int Matricula, string Trimestre, [Bind("Matricula,CodigoAsignatura,Nota,IdSeccion,VigenciaCalificacion")] Calificacion calificacion)
         {
-            if (id != calificacion.CodigoAsignatura)
+            if (CodigoAsignatura != calificacion.CodigoAsignatura || Matricula != calificacion.Matricula || Trimestre != calificacion.Trimestre)
             {
                 return NotFound();
             }

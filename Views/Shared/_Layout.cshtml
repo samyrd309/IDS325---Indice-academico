@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/IDS325___Indice_academico.styles.css" asp-append-version="true" />
 </head>
+@using IDS325___Indice_academico.Controllers
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -49,18 +50,18 @@
                         @if (User.IsInRole("2"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="CalificacionesEstudiantes" asp-action="Index">Calificaciones</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="CalificacionesEstudiantes" asp-action="Index" asp-route-Matricula="@HomeController.usuario.Matricula">Calificaciones</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="CalificacionesEstudiantes" asp-action="Ranking">Ranking</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="CalificacionesEstudiantes" asp-action="Ranking" asp-route-Matricula="@HomeController.usuario.Matricula">Ranking</a>
                             </li>
                         }
 
                         @if (User.IsInRole("3"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="Index">Calificaciones</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="Index" asp-route-Matricula="@HomeController.usuario.Matricula">Calificaciones</a>
                             </li>
                         }
 

@@ -21,12 +21,12 @@ namespace IDS325___Indice_academico.Controllers
         }
 
         
-        public IActionResult Index(Persona _persona)
+        public IActionResult Index(int Matricula)
         {
             DataSet data = new DataSet();
             using (SqlConnection con = new SqlConnection(_config.GetConnectionString("IDS325___Indice_academicoContext")))
             {
-                string q = $"CalcularIndice '{_persona.Matricula}'";
+                string q = $"CalcularIndice '{Matricula}'";
                 using (SqlCommand sql = new SqlCommand(q))
                 {
                     sql.Connection = con;
@@ -47,7 +47,7 @@ namespace IDS325___Indice_academico.Controllers
             DataSet ds = new DataSet();
             using (SqlConnection conn = new SqlConnection(_config.GetConnectionString("IDS325___Indice_academicoContext")))
             {
-                string query = $"EXEC MostrarCalificaciones '{_persona.Matricula.ToString()}'";
+                string query = $"EXEC MostrarCalificaciones '{Matricula}'";
                 using (SqlCommand cmd = new SqlCommand(query,conn))
                 {
                     using (SqlDataAdapter adapter = new SqlDataAdapter())
