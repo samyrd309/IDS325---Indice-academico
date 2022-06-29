@@ -1,0 +1,44 @@
+﻿@model IEnumerable<IDS325___Indice_academico.Models.Persona>
+
+@{
+    ViewData["Title"] = "Ranking";
+}
+
+<h1>Ranking</h1>
+
+<div>
+    <div class="row mb-3">
+        <label id="Indice">Indice General</label>
+        <input type="text" id="txtCarrera" />
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Matricula
+            </th>
+            <th>
+                Carrera
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Indice)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Matricula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Carrera)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Indice)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
