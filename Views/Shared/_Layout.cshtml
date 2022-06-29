@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity;
-
+@using IDS325___Indice_academico.Controllers
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +12,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white mb-3">
             <div class="container-fluid">
                @* <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">IDS325___Indice_academico</a>*@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -33,15 +33,15 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="ASignaturas" asp-action="Index">Asignatura</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Asignaturas" asp-action="Index">Asignatura</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Seccions" asp-action="Index">Seccione</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Seccions" asp-action="Index">Secciones</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="Index">Calificaciones</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Revision" asp-action="Index">Calificaciones</a>
                             </li>
                         }
 
@@ -64,8 +64,8 @@
                             </li>
                         }
 
-                        <li class="nav-item d-flex">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CerrarSesion">Salir</a>
+                        <li class="d-flex ms-auto">
+                            <a class="nav-link text-dark align-self-end" asp-area="" asp-controller="Home" asp-action="CerrarSesion">Salir</a>
                         </li>
                     </ul>
                 </div>
@@ -78,9 +78,9 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - IDS325___Indice_academico - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="footer mt-auto py-3 fixed mt-auto">
+        <div class="container d-flex align-items-center">
+            <p>Derechos reservados del grupo #3 - 2022 </p>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

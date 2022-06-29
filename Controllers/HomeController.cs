@@ -56,7 +56,7 @@ namespace IDS325___Indice_academico.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Login", "Home");
+                    return RedirectToAction("Login", "Home", usuario);
                 }
 
             }

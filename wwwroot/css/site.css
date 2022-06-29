@@ -16,6 +16,22 @@ html {
   html {
     font-size: 18px;
   }
+  header{
+      height: 10vh;
+  }
+  body{
+    margin:0;
+    display:flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  footer {
+        background-color: red;
+        color: white;
+        height: 10vh;
+        margin-top: auto;
+   }
 
     /*Pagina de bienvenida*/
   
