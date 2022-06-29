@@ -4,6 +4,7 @@ using System.Data;
 using IDS325___Indice_academico.Models;
 using IDS325___Indice_academico.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace IDS325___Indice_academico.Controllers
 {
@@ -22,6 +23,27 @@ namespace IDS325___Indice_academico.Controllers
         
         public IActionResult Index(Persona _persona)
         {
+            DataSet data = new DataSet();
+            using (SqlConnection con = new SqlConnection(_config.GetConnectionString("IDS325___Indice_academicoContext")))
+            {
+                string q = $"CalcularIndice '{_persona.Matricula}'";
+                using (SqlCommand sql = new SqlCommand(q))
+                {
+                    sql.Connection = con;
+                    sql.CommandType = CommandType.Text;
+                    con.Open();
+                    SqlDataReader reader = sql.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        ViewBag.Indice = reader["Indice"].ToString();
+                        ViewBag.Total = reader["TotalCreditos"].ToString();
+                        ViewBag.Merito = reader["Meritos"].ToString();
+                    }
+
+                    con.Close();
+                }
+            }
+
             DataSet ds = new DataSet();
             using (SqlConnection conn = new SqlConnection(_config.GetConnectionString("IDS325___Indice_academicoContext")))
             {
@@ -37,6 +59,13 @@ namespace IDS325___Indice_academico.Controllers
             }
 
             return View(ds);
+        }
+
+        public async Task<IActionResult> Ranking(string txtCarrera)
+        {
+            return _context.Persona != null ?
+                    View(await _context.Persona.Where(p => p.VigenciaPersona == true && p.IdRol == 2 && p.Carrera == txtCarrera).OrderBy(p => p.Indice).ToListAsync()) :
+                    Problem("Entity set 'IDS325___Indice_academicoContext.Calificacion'  is null.");
         }
     }
 }

@@ -1,13 +1,26 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-
-@using System.Data;
+﻿@using System.Data;
 @model DataSet
+@using IDS325___Indice_academico.Controllers
 @{
     Layout = "_Layout";
 }
 
+<div>
+    <div class="row mb-3">
+        <div class="col-sm-3">
+            <label id="Indice">Indice General</label>
+            <input type="text" id="txtIndice" value="@ViewBag.Indice" readonly />
+        </div>
+        <div class="col-sm-3">
+            <label id="Total">Total de Créditos</label>
+            <input type="text" id="txtTotalCreditos" value="@ViewBag.Total" readonly />
+        </div>
+        <div class="col-sm-3">
+            <label id="Meritos">Honor Académico</label>
+            <input type="text" id="txtMerito" value="@ViewBag.Merito" readonly />
+        </div>
+    </div>
+</div>
 
 <table class="table">
     <thead>

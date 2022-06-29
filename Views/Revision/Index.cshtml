@@ -4,9 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-<partial name="_create" model="new Calificacion()" />
+<h1>Revisiones</h1>
 
 <table class="table">
     <thead>
@@ -19,6 +17,9 @@
             </th>
             <th>
                 Sección
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nota)
             </th>
             <th></th>
         </tr>
@@ -36,9 +37,12 @@
                 @Html.DisplayFor(modelItem => item.IdSeccion)
             </td>
             <td>
-                @Html.ActionLink(linkText: "Delete",
-                                actionName: "Delete",
-                                controllerName: "Asignacion",
+                @Html.DisplayFor(modelItem => item.Nota)
+            </td>
+            <td>
+                @Html.ActionLink(linkText: "Edit",
+                                actionName: "Edit",
+                                controllerName: "Revision",
                                 routeValues: new {
                                     CodigoAsignatura = item.CodigoAsignatura, 
                                     Matricula = item.Matricula
@@ -46,15 +50,7 @@
                                 htmlAttributes: null) |
                 @Html.ActionLink(linkText: "Details",
                                 actionName: "Details",
-                                controllerName: "Asignacion",
-                                routeValues: new {
-                                    CodigoAsignatura = item.CodigoAsignatura, 
-                                    Matricula = item.Matricula
-                                },
-                                htmlAttributes: null) |
-                @Html.ActionLink(linkText: "Delete",
-                                actionName: "Delete",
-                                controllerName: "Asignacion",
+                                controllerName: "Revision",
                                 routeValues: new {
                                     CodigoAsignatura = item.CodigoAsignatura, 
                                     Matricula = item.Matricula

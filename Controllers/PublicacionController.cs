@@ -7,27 +7,64 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IDS325___Indice_academico.Data;
 using IDS325___Indice_academico.Models;
+using System.Data;
+using Microsoft.Data.SqlClient;
 
 namespace IDS325___Indice_academico.Controllers
 {
-    public class CalificacionsController : Controller
+    public class PublicacionController : Controller
     {
         private readonly IDS325___Indice_academicoContext _context;
+        private readonly IConfiguration _config;
+        private readonly IEnumerable<object> tblEstudiantes;
 
-        public CalificacionsController(IDS325___Indice_academicoContext context)
+        public PublicacionController(IDS325___Indice_academicoContext context, IConfiguration config)
         {
             _context = context;
+            _config = config;
         }
 
-        // GET: Calificacions
-        public async Task<IActionResult> Index()
+        // GET: Publicacion
+        public ActionResult Index(string CodigoAsignatura, int Seccion)
         {
-              return _context.Calificacion != null ? 
-                          View(await _context.Calificacion.ToListAsync()) :
-                          Problem("Entity set 'IDS325___Indice_academicoContext.Calificacion'  is null.");
+            CodigoAsignatura = "IDS325";
+            Seccion = 1;
+            // Modificar Planchado
+
+            DataSet ds = new DataSet();
+            using (SqlConnection conn = new SqlConnection(_config.GetConnectionString("IDS325___Indice_academicoContext")))
+            {
+                string query = $"EXEC ListadoSeccion '{CodigoAsignatura}', {Seccion}"; 
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    using (SqlDataAdapter adapter = new SqlDataAdapter())
+                    {
+                        adapter.SelectCommand = cmd;
+                        adapter.Fill(ds);
+                    }
+                }
+            }
+
+            return View(ds);
         }
 
-        // GET: Calificacions/Details/5
+
+        public ActionResult test()
+        {
+            return View();
+        }
+
+        public ActionResult Publicar(string txtNota)
+        {
+            foreach(var calificacion in tblEstudiantes)
+            {
+
+            }
+            
+            return View("Index");
+        }
+
+        // GET: Publicacion/Details/5
         public async Task<IActionResult> Details(string id)
         {
             if (id == null || _context.Calificacion == null)
@@ -45,13 +82,13 @@ namespace IDS325___Indice_academico.Controllers
             return View(calificacion);
         }
 
-        // GET: Calificacions/Create
+        // GET: Publicacion/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Calificacions/Create
+        // POST: Publicacion/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -67,7 +104,7 @@ namespace IDS325___Indice_academico.Controllers
             return View(calificacion);
         }
 
-        // GET: Calificacions/Edit/5
+        // GET: Publicacion/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null || _context.Calificacion == null)
@@ -83,7 +120,7 @@ namespace IDS325___Indice_academico.Controllers
             return View(calificacion);
         }
 
-        // POST: Calificacions/Edit/5
+        // POST: Publicacion/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -118,7 +155,7 @@ namespace IDS325___Indice_academico.Controllers
             return View(calificacion);
         }
 
-        // GET: Calificacions/Delete/5
+        // GET: Publicacion/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null || _context.Calificacion == null)
@@ -136,7 +173,7 @@ namespace IDS325___Indice_academico.Controllers
             return View(calificacion);
         }
 
-        // POST: Calificacions/Delete/5
+        // POST: Publicacion/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
