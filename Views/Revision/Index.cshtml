@@ -45,7 +45,8 @@
                                 controllerName: "Revision",
                                 routeValues: new {
                                     CodigoAsignatura = item.CodigoAsignatura, 
-                                    Matricula = item.Matricula
+                                    Matricula = item.Matricula,
+                                    Trimestre = item.Trimestre
                                 },
                                 htmlAttributes: null) |
                 @Html.ActionLink(linkText: "Details",
@@ -53,7 +54,8 @@
                                 controllerName: "Revision",
                                 routeValues: new {
                                     CodigoAsignatura = item.CodigoAsignatura, 
-                                    Matricula = item.Matricula
+                                    Matricula = item.Matricula, 
+                                    Trimestre = item.Trimestre
                                 },
                                 htmlAttributes: null)
             </td>

@@ -22,7 +22,7 @@ namespace IDS325___Indice_academico.Data
                 .HasKey(s => new { s.IdSeccion, s.CodigoAsignatura });
 
             modelBuilder.Entity<Calificacion>()
-                .HasKey(c => new { c.CodigoAsignatura, c.Matricula });
+                .HasKey(c => new { c.CodigoAsignatura, c.Matricula, c.Trimestre });
                 
         }
 

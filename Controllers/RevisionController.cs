@@ -32,15 +32,15 @@ namespace IDS325___Indice_academico.Controllers
         }
 
         // GET: Revision/Details/5
-        public async Task<IActionResult> Details(string? CodigoAsignatura, int Matricula)
+        public async Task<IActionResult> Details(string? CodigoAsignatura, int Matricula, string Trimestre)
         {
-            if (CodigoAsignatura == null || Matricula == null || _context.Calificacion == null)
+            if (CodigoAsignatura == null || Matricula == null || Trimestre == null ||  _context.Calificacion == null)
             {
                 return NotFound();
             }
 
             var calificacion = await _context.Calificacion
-                .FirstOrDefaultAsync(m => m.CodigoAsignatura == CodigoAsignatura && m.Matricula == Matricula);
+                .FirstOrDefaultAsync(m => m.CodigoAsignatura == CodigoAsignatura && m.Matricula == Matricula && m.Trimestre == Trimestre);
             if (calificacion == null)
             {
                 return NotFound();
@@ -73,14 +73,14 @@ namespace IDS325___Indice_academico.Controllers
         }
 
         // GET: Revision/Edit/5
-        public async Task<IActionResult> Edit(string? CodigoAsignatura, int Matricula)
+        public async Task<IActionResult> Edit(string? CodigoAsignatura, int Matricula, string Trimestre)
         {
-            if (CodigoAsignatura == null || Matricula == null || _context.Calificacion == null)
+            if (CodigoAsignatura == null || Matricula == null || Trimestre == null || _context.Calificacion == null)
             {
                 return NotFound();
             }
 
-            var calificacion = await _context.Calificacion.FindAsync(CodigoAsignatura, Matricula);
+            var calificacion = await _context.Calificacion.FindAsync(CodigoAsignatura, Matricula, Trimestre);
             if (calificacion == null)
             {
                 return NotFound();
@@ -93,9 +93,9 @@ namespace IDS325___Indice_academico.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string? CodigoAsignatura, int Matricula, [Bind("Matricula,CodigoAsignatura,Nota,IdSeccion,VigenciaCalificacion")] Calificacion calificacion)
+        public async Task<IActionResult> Edit(string? CodigoAsignatura, int Matricula, string Trimestre, [Bind("Matricula,CodigoAsignatura,Nota,IdSeccion,VigenciaCalificacion")] Calificacion calificacion)
         {
-            if (CodigoAsignatura != calificacion.CodigoAsignatura && Matricula != calificacion.Matricula)
+            if (CodigoAsignatura != calificacion.CodigoAsignatura && Matricula != calificacion.Matricula && Trimestre != calificacion.Trimestre)
             {
                 return NotFound();
             }
