@@ -61,10 +61,10 @@ namespace IDS325___Indice_academico.Controllers
             return View(ds);
         }
 
-        public async Task<IActionResult> Ranking()
+        public async Task<IActionResult> Ranking(string txtCarrera)
         {
             return _context.Persona != null ?
-                    View(await _context.Persona.Where(p => p.VigenciaPersona == true && p.IdRol == 2).OrderBy(p => p.Indice).ToListAsync()) :
+                    View(await _context.Persona.Where(p => p.VigenciaPersona == true && p.IdRol == 2 && p.Carrera == txtCarrera).OrderBy(p => p.Indice).ToListAsync()) :
                     Problem("Entity set 'IDS325___Indice_academicoContext.Calificacion'  is null.");
         }
     }
