@@ -8,17 +8,13 @@
 
 <h1>Index</h1>
 
-<div class="row">
-    <button class="btn btn-primary mb-2" id="btnPublicar ">Publicar</button>
-</div>
-
-
-<table class="table" id="tbEstudiantes">
+<table class="table">
     <thead>
         <tr>
             <th>Matricula</th>
-            <th>Nombre Estudiante</th>
+            <th>Nombre del Estudiante</th>
             <th>Nota</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -27,29 +23,17 @@
             <tr>
                 <td>@row["Matricula"]</td>
                 <td>@row["Nombre"]</td>
-                <td><input type="text" id="txtNota" placeholder="Nota..." /></td>
+                <td>@row["Nota"]</td>
+                <td>@Html.ActionLink(linkText: "Edit",
+                                actionName: "Edit",
+                                controllerName: "Publicacion",
+                                routeValues: new {
+                                    Matricula = @row["Matricula"], 
+                                    CodigoAsignatura = @row["CodigoAsignatura"],
+                                    Trimestre = @row["Trimestre"]
+                                },
+                                htmlAttributes: null)</td>
             </tr>
         }
     </tbody>
 </table>
-
-
-@section Scripts{
-    <script>
-        $('#btnPublicar').on("click", function(){ // Por alguna razón no puedo ver la lista en el inspeccionar como el pana. REVISAR
-            var notaEstudiantes = []
-            $('#tbEstudiantes > tbody > tr').each(function(index, tr){
-
-                notaEstudiantes.push(
-                    {
-                        Matricula: parseInt($(tr).find("td:eq(0)").text()),
-                        CodigoAsignatura: 'IDS325', // Ver cómo extraigo de no se sabe donde el valor de la asignatura
-                        Nota: $(tr).find("td:eq(2)".text())
-                    }
-                )
-
-            })
-        })
-
-    </script>
-}

@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IDS325___Indice_academico.Data;
 using IDS325___Indice_academico.Models;
-using Microsoft.Data.SqlClient;
 using System.Data;
+using Microsoft.Data.SqlClient;
 
 namespace IDS325___Indice_academico.Controllers
 {
@@ -32,9 +32,9 @@ namespace IDS325___Indice_academico.Controllers
         }
 
         // GET: Revision/Details/5
-        public async Task<IActionResult> Details(string? CodigoAsignatura, int Matricula, string Trimestre)
+        public async Task<IActionResult> Details(string CodigoAsignatura, int Matricula, string Trimestre)
         {
-            if (CodigoAsignatura == null || Matricula == null || Trimestre == null ||  _context.Calificacion == null)
+            if (CodigoAsignatura == null || Matricula == null || Trimestre == null || _context.Calificacion == null)
             {
                 return NotFound();
             }
@@ -60,11 +60,10 @@ namespace IDS325___Indice_academico.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Matricula,CodigoAsignatura,Nota,IdSeccion,VigenciaCalificacion")] Calificacion calificacion)
+        public async Task<IActionResult> Create([Bind("Matricula,CodigoAsignatura,Nota,IdSeccion,VigenciaCalificacion,Trimestre")] Calificacion calificacion)
         {
             if (ModelState.IsValid)
             {
-                calificacion.VigenciaCalificacion = true;
                 _context.Add(calificacion);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -73,7 +72,7 @@ namespace IDS325___Indice_academico.Controllers
         }
 
         // GET: Revision/Edit/5
-        public async Task<IActionResult> Edit(string? CodigoAsignatura, int Matricula, string Trimestre)
+        public async Task<IActionResult> Edit(string CodigoAsignatura, int Matricula, string Trimestre)
         {
             if (CodigoAsignatura == null || Matricula == null || Trimestre == null || _context.Calificacion == null)
             {
@@ -93,7 +92,7 @@ namespace IDS325___Indice_academico.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string? CodigoAsignatura, int Matricula, string Trimestre, [Bind("Matricula,CodigoAsignatura,Nota,IdSeccion,VigenciaCalificacion")] Calificacion calificacion)
+        public async Task<IActionResult> Edit(string CodigoAsignatura, int Matricula, string Trimestre, [Bind("Matricula,CodigoAsignatura,Nota,IdSeccion,VigenciaCalificacion,Trimestre")] Calificacion calificacion)
         {
             if (CodigoAsignatura != calificacion.CodigoAsignatura && Matricula != calificacion.Matricula && Trimestre != calificacion.Trimestre)
             {
@@ -107,7 +106,7 @@ namespace IDS325___Indice_academico.Controllers
                     calificacion.VigenciaCalificacion = true;
                     _context.Update(calificacion);
                     await _context.SaveChangesAsync();
-                    // PROCESO SP ÜPDATE DEL NUEVO ÏNDICE
+
 
                     DataSet ds = new DataSet();
                     using (SqlConnection con = new SqlConnection(_config.GetConnectionString("IDS325___Indice_academicoContext")))
@@ -140,15 +139,15 @@ namespace IDS325___Indice_academico.Controllers
         }
 
         // GET: Revision/Delete/5
-        public async Task<IActionResult> Delete(string? CodigoAsignatura, int Matricula)
+        public async Task<IActionResult> Delete(string id)
         {
-            if (CodigoAsignatura == null || Matricula == null || _context.Calificacion == null)
+            if (id == null || _context.Calificacion == null)
             {
                 return NotFound();
             }
 
             var calificacion = await _context.Calificacion
-                .FirstOrDefaultAsync(m => m.CodigoAsignatura == CodigoAsignatura && m.Matricula == Matricula);
+                .FirstOrDefaultAsync(m => m.CodigoAsignatura == id);
             if (calificacion == null)
             {
                 return NotFound();
