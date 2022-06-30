@@ -66,9 +66,36 @@
                 @Html.DisplayFor(modelItem => item.Indice)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Matricula">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Matricula">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Matricula">Delete</a>
+                @Html.ActionLink(
+                                linkText: "Edit",
+                                actionName: "Edit",
+                                controllerName: "Estudiantes",
+                                routeValues: new { 
+                                    Matricula = item.Matricula,
+                                    Contraseña = item.Contraseña
+                                },
+                                htmlAttributes: null
+                                ) |
+                @Html.ActionLink(
+                                linkText: "Details",
+                                actionName: "Details",
+                                controllerName: "Estudiantes",
+                                routeValues: new { 
+                                    Matricula = item.Matricula,
+                                    Contraseña = item.Contraseña
+                                },
+                                htmlAttributes: null
+                                ) |
+                @Html.ActionLink(
+                                linkText: "Delete",
+                                actionName: "Delete",
+                                controllerName: "Estudiantes",
+                                routeValues: new { 
+                                    Matricula = item.Matricula,
+                                    Contraseña = item.Contraseña
+                                },
+                                htmlAttributes: null
+                                )
             </td>
         </tr>
 }

@@ -13,10 +13,7 @@
     <thead>
         <tr>
             <th>
-                Matricula
-            </th>
-            <th>
-                Asignatura
+                Matricula Estudiante
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Nota)
@@ -31,34 +28,18 @@
                 @Html.DisplayFor(modelItem => item.Matricula)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CodigoAsignatura)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Nota)
             </td>
             <td>
-                @Html.ActionLink(
-                                linkText: "Edit",
+                @Html.ActionLink(linkText: "Edit",
                                 actionName: "Edit",
-                                controllerName: "Revision",
+                                controllerName: "Pub",
                                 routeValues: new {
                                     CodigoAsignatura = item.CodigoAsignatura, 
                                     Matricula = item.Matricula,
                                     Trimestre = item.Trimestre
                                 },
-                                htmlAttributes: null
-                                ) |
-                @Html.ActionLink(
-                                linkText: "Details",
-                                actionName: "Details",
-                                controllerName: "Revision",
-                                routeValues: new {
-                                    CodigoAsignatura = item.CodigoAsignatura, 
-                                    Matricula = item.Matricula,
-                                    Trimestre = item.Trimestre
-                                },
-                                htmlAttributes: null
-                                )
+                                htmlAttributes: null)
             </td>
         </tr>
 }
