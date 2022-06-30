@@ -104,6 +104,7 @@ namespace IDS325___Indice_academico.Controllers
             {
                 try
                 {
+                    calificacion.VigenciaCalificacion = true;
                     _context.Update(calificacion);
                     await _context.SaveChangesAsync();
                     // PROCESO SP ÜPDATE DEL NUEVO ÏNDICE

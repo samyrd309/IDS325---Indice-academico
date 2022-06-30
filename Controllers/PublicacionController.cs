@@ -34,7 +34,7 @@ namespace IDS325___Indice_academico.Controllers
             DataSet ds = new DataSet();
             using (SqlConnection conn = new SqlConnection(_config.GetConnectionString("IDS325___Indice_academicoContext")))
             {
-                string query = $"EXEC ListadoSeccion '{CodigoAsignatura}', {Seccion}"; 
+                string query = $"EXEC ListadoSeccion '{CodigoAsignatura}', {Seccion}";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     using (SqlDataAdapter adapter = new SqlDataAdapter())
@@ -49,10 +49,10 @@ namespace IDS325___Indice_academico.Controllers
         }
 
 
-        public ActionResult test()
+        public ActionResult test(string CodigoAsignatura, int Seccion)
         {
-            string CodigoAsignatura = "IDS325";
-            int Seccion = 1;
+            CodigoAsignatura = "IDS325";
+            Seccion = 1;
             // Modificar Planchado
 
             DataSet ds = new DataSet();
@@ -70,16 +70,6 @@ namespace IDS325___Indice_academico.Controllers
             }
 
             return View(ds);
-        }
-
-        public ActionResult Publicar(string txtNota)
-        {
-            foreach(var calificacion in tblEstudiantes)
-            {
-
-            }
-            
-            return View("Index");
         }
 
         // GET: Publicacion/Details/5
@@ -123,96 +113,29 @@ namespace IDS325___Indice_academico.Controllers
         }
 
         // GET: Publicacion/Edit/5
-        public async Task<IActionResult> Edit(string? CodigoAsignatura, int Matricula, string Trimestre)
+        public ActionResult Publicar(string? CodigoAsignatura, int Matricula, string? txtNota, string Trimestre)
         {
-            if (CodigoAsignatura == null || Matricula == null || _context.Calificacion == null)
-            {
-                return NotFound();
-            }
-
-            var calificacion = await _context.Calificacion.FindAsync(CodigoAsignatura, Matricula, Trimestre);
-            if (calificacion == null)
-            {
-                return NotFound();
-            }
-            return View(calificacion);
-        }
-
-        // POST: Publicacion/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string? CodigoAsignatura, int Matricula, string Trimestre, [Bind("Matricula,CodigoAsignatura,Nota,IdSeccion,VigenciaCalificacion")] Calificacion calificacion)
-        {
-            if (CodigoAsignatura != calificacion.CodigoAsignatura || Matricula != calificacion.Matricula || Trimestre != calificacion.Trimestre)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(calificacion);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CalificacionExists(calificacion.CodigoAsignatura))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(calificacion);
-        }
-
-        // GET: Publicacion/Delete/5
-        public async Task<IActionResult> Delete(string id)
-        {
-            if (id == null || _context.Calificacion == null)
-            {
-                return NotFound();
-            }
-
-            var calificacion = await _context.Calificacion
-                .FirstOrDefaultAsync(m => m.CodigoAsignatura == id);
-            if (calificacion == null)
-            {
-                return NotFound();
-            }
-
-            return View(calificacion);
-        }
-
-        // POST: Publicacion/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
-        {
-            if (_context.Calificacion == null)
-            {
-                return Problem("Entity set 'IDS325___Indice_academicoContext.Calificacion'  is null.");
-            }
-            var calificacion = await _context.Calificacion.FindAsync(id);
-            if (calificacion != null)
-            {
-                _context.Calificacion.Remove(calificacion);
-            }
+            Trimestre = "2022-2 ";
             
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            using (SqlConnection conn = new SqlConnection(_config.GetConnectionString("IDS325___Indice_academicoContext")))
+            {
+                string query = $"EXEC AsignarCalificación {Matricula}, '{txtNota}', '{CodigoAsignatura}', '{Trimestre}'  ";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandType = CommandType.Text;
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
+
+            return View("test");
         }
 
-        private bool CalificacionExists(string id)
+        public ActionResult Edit()
         {
-          return (_context.Calificacion?.Any(e => e.CodigoAsignatura == id)).GetValueOrDefault();
+            return View();
         }
     }
 }
