@@ -102,6 +102,7 @@ namespace IDS325___Indice_academico.Controllers
             {
                 try
                 {
+                    persona.VigenciaPersona = true;
                     _context.Update(persona);
                     await _context.SaveChangesAsync();
                 }

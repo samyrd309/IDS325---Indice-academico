@@ -97,6 +97,7 @@ namespace IDS325___Indice_academico.Controllers
             {
                 try
                 {
+                    asignatura.VigenciaAsignatura = true;
                     _context.Update(asignatura);
                     await _context.SaveChangesAsync();
                 }

@@ -100,6 +100,7 @@ namespace IDS325___Indice_academico.Controllers
             {
                 try
                 {
+                    seccion.VigenciaSeccion = true;
                     _context.Update(seccion);
                     await _context.SaveChangesAsync();
                 }
