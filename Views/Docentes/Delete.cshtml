@@ -12,12 +12,6 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Contraseña)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Contraseña)
-        </dd>
-        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.IdRol)
         </dt>
         <dd class = "col-sm-10">
@@ -59,10 +53,17 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Indice)
         </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.VigenciaPersona)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.VigenciaPersona)
+        </dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Matricula" />
+        <input type="hidden" asp-for="Contraseña" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>

@@ -109,7 +109,7 @@ namespace IDS325___Indice_academico.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PersonaExists(persona.Matricula))
+                    if (!PersonaExists((int)persona.Matricula))
                     {
                         return NotFound();
                     }

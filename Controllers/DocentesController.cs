@@ -19,27 +19,24 @@ namespace IDS325___Indice_academico.Controllers
             _context = context;
         }
 
-        public static Persona docente = new Persona();
-
         // GET: Docentes
         public async Task<IActionResult> Index()
         {
-            docente = await _context.Persona.FirstOrDefaultAsync(p => p.IdRol == 3);
-            return _context.Persona != null ?
-                          View("Index", await _context.Persona.Where(d => d.IdRol.Equals(3) && d.VigenciaPersona == true).ToListAsync()) : // Regular para que filtre por rol de docente
+              return _context.Persona != null ? 
+                          View(await _context.Persona.Where((d => d.IdRol.Equals(3) && d.VigenciaPersona == true)).ToListAsync()) :
                           Problem("Entity set 'IDS325___Indice_academicoContext.Persona'  is null.");
         }
 
         // GET: Docentes/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? Matricula)
         {
-            if (id == null || _context.Persona == null)
+            if (Matricula == null || _context.Persona == null)
             {
                 return NotFound();
             }
 
             var persona = await _context.Persona
-                .FirstOrDefaultAsync(m => m.Matricula == id);
+                .FirstOrDefaultAsync(m => m.Matricula == Matricula);
             if (persona == null)
             {
                 return NotFound();
@@ -59,7 +56,7 @@ namespace IDS325___Indice_academico.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Matricula,Contraseña,IdRol,Carrera,CodigoArea,Nombre,Apellido,CorreoElectronico,Indice")] Persona persona)
+        public async Task<IActionResult> Create([Bind("Matricula,Contraseña,IdRol,Carrera,CodigoArea,Nombre,Apellido,CorreoElectronico,Indice,VigenciaPersona")] Persona persona)
         {
             if (ModelState.IsValid)
             {
@@ -71,14 +68,14 @@ namespace IDS325___Indice_academico.Controllers
         }
 
         // GET: Docentes/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? Matricula, string Contraseña)
         {
-            if (id == null || _context.Persona == null)
+            if (Matricula == null || _context.Persona == null)
             {
                 return NotFound();
             }
 
-            var persona = await _context.Persona.FindAsync(id);
+            var persona = await _context.Persona.FindAsync(Matricula, Contraseña);
             if (persona == null)
             {
                 return NotFound();
@@ -91,9 +88,9 @@ namespace IDS325___Indice_academico.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Matricula,Contraseña,IdRol,Carrera,CodigoArea,Nombre,Apellido,CorreoElectronico,Indice")] Persona persona)
+        public async Task<IActionResult> Edit(int Matricula, string Contraseña, [Bind("Matricula,Contraseña,IdRol,Carrera,CodigoArea,Nombre,Apellido,CorreoElectronico,Indice,VigenciaPersona")] Persona persona)
         {
-            if (id != persona.Matricula)
+            if (Matricula != persona.Matricula || Contraseña != persona.Contraseña)
             {
                 return NotFound();
             }
@@ -108,7 +105,7 @@ namespace IDS325___Indice_academico.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PersonaExists(persona.Matricula))
+                    if (!PersonaExists((int)persona.Matricula))
                     {
                         return NotFound();
                     }
@@ -150,10 +147,9 @@ namespace IDS325___Indice_academico.Controllers
                 return Problem("Entity set 'IDS325___Indice_academicoContext.Persona'  is null.");
             }
             var persona = await _context.Persona.FindAsync(id);
-            persona.VigenciaPersona = false;
             if (persona != null)
             {
-                _context.Persona.Update(persona);
+                _context.Persona.Remove(persona);
             }
             
             await _context.SaveChangesAsync();

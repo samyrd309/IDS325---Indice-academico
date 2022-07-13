@@ -22,7 +22,7 @@ namespace IDS325___Indice_academico.Controllers
         // GET: Asignaturas
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Asignatura.Where(a => a.VigenciaAsignatura == true).ToListAsync());
+            return View(await _context.Asignatura.Where(a => a.VigenciaAsignatura == true).ToListAsync());
         }
 
         // GET: Asignaturas/Details/5
@@ -46,7 +46,15 @@ namespace IDS325___Indice_academico.Controllers
         // GET: Asignaturas/Create
         public IActionResult Create()
         {
-            return View();
+            var model = new Asignatura()
+            {
+                CodigoArea = "Ciencias y Humanidades"
+            };
+            
+            ViewBag.SituationList = _context.AreaAcademica.Select(x => new SelectListItem { Value = x.CodigoArea, Text = x.NombreArea }).ToList();
+
+
+            return View(model);
         }
 
         // POST: Asignaturas/Create
@@ -54,10 +62,11 @@ namespace IDS325___Indice_academico.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CodigoAsignatura,CodigoCarrera,CodigoArea,Credito,NombreAsignatura")] Asignatura asignatura)
+        public async Task<IActionResult> Create([Bind("CodigoAsignatura,CodigoArea,Credito,NombreAsignatura")] Asignatura asignatura)
         {
             if (ModelState.IsValid)
             {
+                asignatura.VigenciaAsignatura = true;
                 _context.Add(asignatura);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -78,6 +87,9 @@ namespace IDS325___Indice_academico.Controllers
             {
                 return NotFound();
             }
+
+            ViewBag.SituationList = _context.AreaAcademica.Select(x => new SelectListItem { Value = x.CodigoArea, Text = x.NombreArea }).ToList();
+
             return View(asignatura);
         }
 
@@ -86,7 +98,7 @@ namespace IDS325___Indice_academico.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("CodigoAsignatura,CodigoCarrera,CodigoArea,Credito,NombreAsignatura")] Asignatura asignatura)
+        public async Task<IActionResult> Edit(string id, [Bind("CodigoAsignatura,CodigoArea,Credito,NombreAsignatura")] Asignatura asignatura)
         {
             if (id != asignatura.CodigoAsignatura)
             {

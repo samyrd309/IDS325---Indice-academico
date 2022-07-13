@@ -13,9 +13,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Contraseña)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.IdRol)
             </th>
             <th>
@@ -36,15 +33,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.Indice)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VigenciaPersona)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Contraseña)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IdRol)
             </td>
@@ -67,9 +64,39 @@
                 @Html.DisplayFor(modelItem => item.Indice)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Matricula">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Matricula">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Matricula">Delete</a>
+                @Html.DisplayFor(modelItem => item.VigenciaPersona)
+            </td>
+            <td>
+                @Html.ActionLink(
+                                linkText: "Edit",
+                                actionName: "Edit",
+                                controllerName: "Docentes",
+                                routeValues: new { 
+                                    Matricula = item.Matricula,
+                                    Contraseña = item.Contraseña
+                                },
+                                htmlAttributes: null
+                                ) |
+                @Html.ActionLink(
+                                linkText: "Details",
+                                actionName: "Details",
+                                controllerName: "Docentes",
+                                routeValues: new { 
+                                    Matricula = item.Matricula,
+                                    Contraseña = item.Contraseña
+                                },
+                                htmlAttributes: null
+                                ) |
+                @Html.ActionLink(
+                                linkText: "Delete",
+                                actionName: "Delete",
+                                controllerName: "Docentes",
+                                routeValues: new { 
+                                    Matricula = item.Matricula,
+                                    Contraseña = item.Contraseña
+                                },
+                                htmlAttributes: null
+                                )
             </td>
         </tr>
 }
