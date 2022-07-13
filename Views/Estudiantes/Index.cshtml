@@ -13,22 +13,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Contraseña)
+                @Html.DisplayNameFor(model => model.Nombre)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdRol)
+                @Html.DisplayNameFor(model => model.Apellido)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Carrera)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CodigoArea)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Apellido)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CorreoElectronico)
@@ -42,10 +36,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Contraseña)
+                @Html.DisplayFor(modelItem => item.Nombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdRol)
+                @Html.DisplayFor(modelItem => item.Apellido)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Carrera)
@@ -54,16 +48,7 @@
                 @Html.DisplayFor(modelItem => item.CodigoArea)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Apellido)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.CorreoElectronico)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Indice)
             </td>
             <td>
                 @Html.ActionLink(

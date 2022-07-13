@@ -67,6 +67,8 @@ namespace IDS325___Indice_academico.Controllers
         {
             if (ModelState.IsValid)
             {
+                persona.IdRol = 2;
+                persona.VigenciaPersona = true;
                 _context.Add(persona);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

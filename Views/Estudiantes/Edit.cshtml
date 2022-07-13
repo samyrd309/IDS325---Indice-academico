@@ -14,16 +14,6 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Matricula" />
             <div class="form-group">
-                <label asp-for="Contraseña" class="control-label"></label>
-                <input asp-for="Contraseña" class="form-control" />
-                <span asp-validation-for="Contraseña" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdRol" class="control-label"></label>
-                <input asp-for="IdRol" class="form-control" />
-                <span asp-validation-for="IdRol" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="CodigoArea" class="control-label">Área Académica</label>
                 <select asp-for="CodigoArea" class="form-select" asp-items="ViewBag.AreaList">
                     <option value="">Seleccione el Área Académica</option>
@@ -36,26 +26,6 @@
                     <option value="">Seleccione la Carrera</option>
                 </select>
                 <span asp-validation-for="CodigoArea" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
-                <span asp-validation-for="Nombre" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Apellido" class="control-label"></label>
-                <input asp-for="Apellido" class="form-control" />
-                <span asp-validation-for="Apellido" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CorreoElectronico" class="control-label"></label>
-                <input asp-for="CorreoElectronico" class="form-control" />
-                <span asp-validation-for="CorreoElectronico" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Indice" class="control-label"></label>
-                <input asp-for="Indice" class="form-control" />
-                <span asp-validation-for="Indice" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
