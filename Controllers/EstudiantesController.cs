@@ -52,6 +52,9 @@ namespace IDS325___Indice_academico.Controllers
         // GET: Estudiantes/Create
         public IActionResult Create()
         {
+            ViewBag.AreaList = _context.AreaAcademica.Select(x => new SelectListItem { Value = x.CodigoArea, Text = x.NombreArea }).ToList();
+            ViewBag.CarreraList = _context.Carrera.Select(x => new SelectListItem { Value = x.CodigoCarrera, Text = x.NombreCarrera }).ToList();
+
             return View();
         }
 
@@ -72,7 +75,7 @@ namespace IDS325___Indice_academico.Controllers
         }
 
         // GET: Estudiantes/Edit/5
-        public async Task<IActionResult> Edit(int? Matricula, string Contraseña)
+        public async Task<IActionResult> Edit(int? Matricula, string Contraseña, string CodigoArea)
         {
             if (Matricula == null || _context.Persona == null)
             {
@@ -84,6 +87,10 @@ namespace IDS325___Indice_academico.Controllers
             {
                 return NotFound();
             }
+
+            ViewBag.AreaList = _context.AreaAcademica.Select(x => new SelectListItem { Value = x.CodigoArea, Text = x.NombreArea }).ToList();
+            ViewBag.CarreraList = _context.Carrera.Select(x => new SelectListItem { Value = x.CodigoCarrera, Text = x.NombreCarrera }).ToList();
+
             return View(persona);
         }
 

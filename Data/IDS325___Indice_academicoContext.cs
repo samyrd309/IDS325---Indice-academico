@@ -45,6 +45,7 @@ namespace IDS325___Indice_academico.Data
         public DbSet<IDS325___Indice_academico.Models.Seccion>? Seccion { get; set; }
         public DbSet<IDS325___Indice_academico.Models.Calificacion>? Calificacion { get; set; }
         public DbSet<IDS325___Indice_academico.Models.AreaAcademica>? AreaAcademica { get; set; }
+        public DbSet<IDS325___Indice_academico.Models.Carrera>? Carrera { get; set; }
 
         
     }

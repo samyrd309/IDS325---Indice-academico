@@ -20,13 +20,17 @@
                 <span asp-validation-for="IdRol" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Carrera" class="control-label"></label>
-                <input asp-for="Carrera" class="form-control" />
-                <span asp-validation-for="Carrera" class="text-danger"></span>
+                <label asp-for="CodigoArea" class="control-label">Área Académica</label>
+                <select asp-for="CodigoArea" class="form-select" asp-items="ViewBag.AreaList">
+                    <option value="">Seleccione el Área Académica</option>
+                </select>
+                <span asp-validation-for="CodigoArea" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CodigoArea" class="control-label"></label>
-                <input asp-for="CodigoArea" class="form-control" />
+                <label asp-for="Carrera" class="control-label">Carrera</label>
+                <select asp-for="Carrera" class="form-select" asp-items="ViewBag.CarreraList">
+                    <option value="">Seleccione la Carrera</option>
+                </select>
                 <span asp-validation-for="CodigoArea" class="text-danger"></span>
             </div>
             <div class="form-group">

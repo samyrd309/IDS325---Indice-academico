@@ -48,6 +48,8 @@ namespace IDS325___Indice_academico.Controllers
         // GET: Docentes/Create
         public IActionResult Create()
         {
+            ViewBag.AreaList = _context.AreaAcademica.Select(x => new SelectListItem { Value = x.CodigoArea, Text = x.NombreArea }).ToList();
+            ViewBag.CarreraList = _context.Carrera.Select(x => new SelectListItem { Value = x.CodigoCarrera, Text = x.NombreCarrera }).ToList();
             return View();
         }
 
@@ -80,6 +82,9 @@ namespace IDS325___Indice_academico.Controllers
             {
                 return NotFound();
             }
+
+            ViewBag.AreaList = _context.AreaAcademica.Select(x => new SelectListItem { Value = x.CodigoArea, Text = x.NombreArea }).ToList();
+            ViewBag.CarreraList = _context.Carrera.Select(x => new SelectListItem { Value = x.CodigoCarrera, Text = x.NombreCarrera }).ToList();
             return View(persona);
         }
 
